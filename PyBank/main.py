@@ -68,63 +68,48 @@ def net_changes(budget_csv):
         # Split on delimiter
         csvreader = csv.reader(csvfile, delimiter= ',')
         new_list = list(csvreader)
-        # pprint(new_list)
         
+        prev_i = 0
+        sum_change = 0
+        max_change = 0
+        max_row = ''
+        min_change = 0
+        min_row = ''
         for i in new_list:
             try:
-                # date = str(row[0])
-                profit = int(i[1])
-                # # monthly_change = profit - int(row[i-1])
+                if prev_i == 0:
+                    change = 0
+                    i.append(change)
+                    prev_i = int(i[1])
+                    # print(prev_i)
 
-                i.append(profit)
-                # print(profit)
-                # row.append(profit)
-                
-                # new_list.append(row)
+                else:
+                    change = int(i[1]) - int(prev_i)
+                    # print(change)
+                    i.append(change)
+                    prev_i = int(i[1])
+                    sum_change = sum_change + change
+                    if change > max_change:
+                        max_change = change
+                        max_row = i[0]
+                    else:
+                        pass
+
+                    if change < min_change:
+                        min_change = change
+                        min_row = i[0]
+                    else:
+                        pass
+
+                    # print(prev_i)
             except:
                 pass
 
-        pprint(new_list)
+        # pprint((new_list))
+        print("Average Change: $" + str(round(sum_change/len(new_list[1:]), 2)) + "\n")
 
-
-        # profit_data = list(csvfile)
-        # csvfile.close
-        # print(profit_data)
-
-
-
-
-        # for row in profit_data[1:]:
-        #     profit_data[3] = 
-        #     print(profit_data[1:])
-        #     #profit_data[3] = 
-
-
-        # #create dictionary for storing the csv data
-        # #Source code: https://stackoverflow.com/questions/6740918/creating-a-dictionary-from-a-csv-file
-        # with open(budget_csv, 'r') as csvfile:
-        #     reader = csv.reader(csvfile)
-        #     with open('budget_changes_csv', 'w') as newfile:
-        #         writer = csv.writer(newfile)
-        #         changes_list = [rows[0]:rows[1] for rows in reader]
-
-        #         # add calculated column of difference between row and row -1
-        #         # source: https://stackoverflow.com/questions/65958081/adding-a-new-column-to-and-existing-dictionary-in-python
-        #         # for row in changes_dict:
-        #         #     print(row)
-
-
-        #         print(newfile)
-
-
-
-        # _list = []
-        # #print(profit_data)
-        # for row in profit_data[:]:
-        #     #print(int(row[1]))
-        #     prof_list.append(int(row[1]))
-        
-        # print("Average Change: $")
+        print("Greatest Increase in Profits: " + str(max_row) + " ($" + str(round(max_change, 0)) + ")\n")
+        print("Greatest Decrease in Profits: " + str(min_row) + " ($" + str(round(min_change, 0)) + ")\n")
 
 
 # run first part of analysis output: count of unique month-yr values in the csv
