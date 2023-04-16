@@ -10,7 +10,7 @@ budget_csv = os.path.join(dirname, 'Resources\\budget_data.csv')
 # datetime source: https://stackabuse.com/how-to-format-dates-in-python/
 def month_counter(budget_csv):
     #date = str(budget_csv[0])                   #datetime.strptime(budget_csv[0], '%b-%y')  # date formatting not used for getting the month count.
-   # profit_loss = int(budget_csv[1])
+
 
     # read through the full csv file
     with open(budget_csv, 'r') as csvfile:
