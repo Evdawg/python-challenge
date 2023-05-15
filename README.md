@@ -1,4 +1,5 @@
 # python-challenge
+Graded: 100/100
 Module 3 Challenge
 
 Sources:
